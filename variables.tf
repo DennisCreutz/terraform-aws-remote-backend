@@ -1,5 +1,5 @@
-variable "stage" {
-  description = "The stage name."
+variable "environment" {
+  description = "The environment name."
   type        = string
 }
 
@@ -19,11 +19,6 @@ variable "dynamo_db_name" {
 }
 
 locals {
-  prefix_env = terraform.workspace == "default" ? var.stage : terraform.workspace
+  prefix_env = terraform.workspace == "default" ? var.environment : terraform.workspace
   prefix     = "${var.project}-${local.prefix_env}"
-  default_tags = {
-    stage        = var.stage
-    project      = var.project
-    tf_workspace = terraform.workspace
-  }
 }
